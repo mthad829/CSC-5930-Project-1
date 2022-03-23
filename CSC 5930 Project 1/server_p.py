@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 
 port = 50000                    # Reserve a port for your service.
 s = socket.socket()             # Create a socket object
-host = "localhost"     # Get local machine name
+host = "10.138.14.8"     # Get local machine name
 
 key = Fernet.generate_key()
 
@@ -14,7 +14,9 @@ with open('mykey.key', 'wb') as mykey:
 with open('manav.txt', 'rb') as original_file:
       original = original_file.read()
 
-enc = key.encrypt(original)
+objKey = Fernet(key)
+
+enc = objKey.encrypt(original)
 
 with open ('enc_manav.txt', 'wb') as encrypted_file:
    encrypted_file.write(enc)
@@ -40,5 +42,5 @@ while True:
     f.close()
 
     print('Done sending')
-    conn.send('Thank you for connecting'.encode())
+    #conn.send('Thank you for connecting'.encode())
     conn.close()
